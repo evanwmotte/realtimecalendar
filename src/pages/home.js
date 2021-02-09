@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { auth } from '../firebase';
 import { useHistory } from 'react-router-dom';
+import NavigationDrawer from '../components/navigation';
+import { db } from '../firebase'
+import { MonthView } from '../components/month-view';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -18,6 +21,18 @@ const useStyles = makeStyles((theme) => ({
             boxShadow: '2px 2px 2px black',
         }
     },
+    paper: {
+        width: '99%',
+        height: '50px',
+        marginTop: '-60px',
+        marginBottom: '40px'
+    },
+    calendarView: {
+        position: 'absolute',
+        marginTop: '40px',
+        height: '80%',
+        width: '80%'
+    }
 }));
 
 export const Home = () => {
@@ -40,8 +55,11 @@ export const Home = () => {
 
     return (
         <div>
-            <h1>You are logged in</h1>
-            <Button className={classes.button} onClick={logOut}>Log Out</Button>
+            <Paper>
+                <NavigationDrawer>
+                    <Button className={classes.button} onClick={logOut}>Log Out</Button>
+                </NavigationDrawer>
+            </Paper>
         </div>
     )
 }

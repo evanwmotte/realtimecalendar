@@ -88,8 +88,8 @@ export const Login = () => {
             });
     }
 
-    const googleSignIn = async () => {
-        await auth.signInWithPopup(provider)
+    const googleSignIn = () => {
+        auth.signInWithPopup(provider)
             .then((user) => {
                 console.log(user)
                 history.push('/home')
@@ -111,7 +111,7 @@ export const Login = () => {
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
-      };
+    };
 
     return (
         <Paper className={classes.paper}>
@@ -127,27 +127,27 @@ export const Login = () => {
                 label="Enter Email" />
             <br />
             <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            value={userCredentials.password}
-            onChange={e => setUserCredentials({ ...userCredentials, password: e.target.value })}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-            labelWidth={70}
-          />
-        </FormControl>
+                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={userCredentials.password}
+                    onChange={e => setUserCredentials({ ...userCredentials, password: e.target.value })}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                            >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                    labelWidth={70}
+                />
+            </FormControl>
             <br />
             {!createOrSignIn ?
                 <div>
