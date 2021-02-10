@@ -1,30 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, makeStyles, Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import AddEventModal from './add-event-modal';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
     display: {
-        width: '100%',
+        width: '99.96%',
         textAlign: 'center',
         height: '50px',
         fontSize: '25px',
         borderRadius: '0',
+        boxShadow: '1px 1px 1px 1px gray',
     },
     card: {
         width: '14.28%',
         float: 'left',
         textAlign: 'center',
         borderRadius: '0',
-        marginBottom: '10px'
+        boxShadow: '1px 1px 1px 1px gray',
     },
     days: {
         width: '14.28%',
         float: 'left',
         textAlign: 'left',
         borderRadius: '0',
-        height: '138px'
+        height: '138px',
+        boxShadow: '1px 1px 1px 1px gray',
     },
     button: {
         '&:hover': {
@@ -33,31 +37,75 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export const Calendar = () => {
+export const MonthView = () => {
+
+    const [days, setDays] = useState([])
+    const [dayNums, setDayNums] = useState([])
+    const [month, setMonth] = useState(moment().add('month').format('MMMM'))
 
     const classes = useStyles();
 
-    const days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+    useEffect(() => {
+        getDays(month)
+    }, [])
+
+    const getDays = (month) => {
+        const value = moment();
+        const startDay = value.month(month).clone().startOf('month').startOf('week');
+        const endDay = value.month(month).clone().endOf('month').endOf('week');
+        const day = startDay.clone().subtract(1, "day");
+        const calendar = []
+        while (day.isBefore(endDay, "day")) {
+            calendar.push(
+                day.add(1, "day").clone()
+            )
+        }
+        setDays(calendar.map(day => day.format("dddd, MMMM Do YYYY").toString()))
+        setDayNums(calendar.map(day => day.format("Do").toString()))
+    }
+
+    const increaseMonth = () => {
+        let currentMonth = month
+        if (currentMonth === 11) {
+            currentMonth = 0
+        }
+        let newMonth = moment().month(currentMonth).add(1, 'month').format('MMMM')
+        setMonth(newMonth)
+        getDays(newMonth)
+    }
+
+    const decreaseMonth = () => {
+        let currentMonth = month
+        if (currentMonth === 0) {
+            currentMonth = 11
+        }
+        let newMonth = moment().month(currentMonth).subtract(1, 'month').format('MMMM')
+        setMonth(newMonth)
+        getDays(newMonth)
+    }
 
     return (
         <div>
             <Card className={classes.display}>
-                <Button className={classes.button}>
-                <ArrowBackIosIcon />
+                <Button onClick={decreaseMonth} className={classes.button}>
+                    <ArrowBackIosIcon />
                 </Button>
-                February
-                <Button className={classes.button}>
-                <ArrowForwardIosIcon />
+                {month}
+                <Button onClick={increaseMonth} className={classes.button}>
+                    <ArrowForwardIosIcon />
                 </Button>
             </Card>
-            <Card className={classes.card}>Sunday</Card>
-            <Card className={classes.card}>Monday</Card>
-            <Card className={classes.card}>Tuesday</Card>
-            <Card className={classes.card}>Wednesday</Card>
-            <Card className={classes.card}>Thursday</Card>
-            <Card className={classes.card}>Friday</Card>
-            <Card className={classes.card}>Saturday</Card>
-            {days.map(day => <a><Card className={classes.days} onClick={() => console.log("clicked " + day)}>{day}</Card></a>)}
+            {daysOfWeek.map(day => <Card className={classes.card}>{day}</Card>)}
+            {days.map(day =>
+                <a>
+                    <AddEventModal date={day} day={day.split(' ')[2]}>{day}</AddEventModal>
+                </a>)}
         </div>
     );
+}
+
+export const WeekView = () => {
+
 }

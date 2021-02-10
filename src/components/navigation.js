@@ -9,7 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { MonthView } from './month-view';
+import { MonthView } from './calendar';
 
 const drawerWidth = 240;
 
@@ -67,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'flex-end',
         padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
     content: {

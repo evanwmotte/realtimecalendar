@@ -5,7 +5,7 @@ import { auth } from '../firebase';
 import { useHistory } from 'react-router-dom';
 import NavigationDrawer from '../components/navigation';
 import { db } from '../firebase'
-import { MonthView } from '../components/month-view';
+import { MonthView } from '../components/calendar';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -55,11 +55,9 @@ export const Home = () => {
 
     return (
         <div>
-            <Paper>
                 <NavigationDrawer>
                     <Button className={classes.button} onClick={logOut}>Log Out</Button>
                 </NavigationDrawer>
-            </Paper>
         </div>
     )
 }
