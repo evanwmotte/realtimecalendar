@@ -6,15 +6,17 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    marginTop: '20px',
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    width: 400,
   },
 }));
 
-export default function TimeSelector({ time }) {
+export default function TimeSelector({ time, current }) {
+
   const classes = useStyles();
 
   return (
@@ -23,7 +25,7 @@ export default function TimeSelector({ time }) {
         id="datetime-local"
         label={time}
         type="datetime-local"
-        defaultValue="2017-05-24T10:30"
+        defaultValue={current}
         className={classes.textField}
         InputLabelProps={{
           shrink: true,

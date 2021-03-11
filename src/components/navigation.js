@@ -9,7 +9,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { ListItem, Button } from '@material-ui/core'
 import { MonthView } from './calendar';
+import MyCalendars from './myCalendarsDropdown';
+import AccountMenu from './accountMenu'
 
 const drawerWidth = 240;
 
@@ -18,7 +21,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     appBar: {
-        boxShadow: 'none',
+        border: 'none',
+        boxShadow: '0px 0px 1px 0px',
+        backgroundColor: '#E6E6E6',
+        color: 'black',
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
@@ -35,31 +41,36 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButton: {
         marginRight: 36,
+        backgroundColor: 'white',
+        '&:hover': {
+            backgroundColor: 'lightgray',
+        }
     },
     hide: {
         display: 'none',
     },
     drawer: {
         width: drawerWidth,
-        flexShrink: 0,
         whiteSpace: 'nowrap',
     },
     drawerOpen: {
-        width: drawerWidth,
+        width: drawerWidth + 30,
+        backgroundColor: '#E6E6E6',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
     drawerClose: {
+        backgroundColor: '#E6E6E6',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        width: theme.spacing(7) + 1,
+        width: 0,
         [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9) + 1,
+            width: 0,
         },
     },
     toolbar: {
@@ -72,7 +83,18 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
+        backgroundColor: 'white'
     },
+    createButton: {
+        marginTop: '75px',
+        backgroundColor: 'white',
+        width: '230px',
+        borderRadius: '20px',
+        boxShadow: '1px 1px 1px 0px gray'
+    },
+    account: {
+        justifyContent: 'flex-end'
+    }
 }));
 
 export default function Navigation({ children }) {
@@ -103,7 +125,8 @@ export default function Navigation({ children }) {
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Calendar
-          </Typography>
+                    </Typography>
+                    <AccountMenu className={classes.account}/>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -120,7 +143,12 @@ export default function Navigation({ children }) {
                 }}
             >
                 <List>
-                    {/* {LIST ITEMS WILL GO HERE WITH ICONS, ETC} */}
+                    <ListItem>
+                        <Button className={classes.createButton}>CREATE</Button>
+                    </ListItem>
+                    <ListItem>
+                        <MyCalendars />
+                    </ListItem>
                 </List>
             </Drawer>
             <main className={classes.content}>

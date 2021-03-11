@@ -4,6 +4,8 @@ import { TextField, Button, Paper, Typography, IconButton, InputAdornment, Input
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import { auth, provider } from '../firebase';
 import { useHistory } from 'react-router-dom';
+import { logInUserRedux } from '../redux/actions/authActions';
+import { useDispatch } from 'react-redux'
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +58,8 @@ export const Login = () => {
     const [createOrSignIn, setCreateOrSignIn] = useState(false)
     const [showPassword, setShowPassword] = useState(true)
 
+    const dispatch = useDispatch();
+
     const history = useHistory();
 
     const classes = useStyles();
@@ -92,6 +96,7 @@ export const Login = () => {
         auth.signInWithPopup(provider)
             .then((user) => {
                 console.log(user)
+                dispatch(logInUserRedux(user))
                 history.push('/home')
             })
             .catch((err) => {
@@ -116,7 +121,7 @@ export const Login = () => {
     return (
         <Paper className={classes.paper}>
             <Typography className={classes.title}>
-                {!createOrSignIn ? 'Create an Account!' : 'Sign In!'}
+                {createOrSignIn ? 'Create an Account!' : 'Sign In!'}
             </Typography>
             <TextField
                 className={classes.textField}
@@ -149,7 +154,7 @@ export const Login = () => {
                 />
             </FormControl>
             <br />
-            {!createOrSignIn ?
+            {createOrSignIn ?
                 <div>
                     <Button className={classes.button} onClick={createUser} color={'primary'}>Create Account</Button>
                     <Typography>Already have an account?</Typography>

@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-export default function TaskSelector() {
-  const [value, setValue] = React.useState('female');
+export default function TaskSelector({ setTaskType }) {
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setTaskType(event.target.value)
   };
 
   return (
     <FormControl component="fieldset">
-      <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-        <FormControlLabel value="female" control={<Radio />} label="Event" />
-        <FormControlLabel value="male" control={<Radio />} label="Task" />
-        <FormControlLabel value="other" control={<Radio />} label="Reminder" />
+      <RadioGroup defaultValue={'Event'} onChange={handleChange}>
+        <FormControlLabel value="Event" control={<Radio />} label="Event" />
+        <FormControlLabel value="Task" control={<Radio />} label="Task" />
+        <FormControlLabel value="Reminder" control={<Radio />} label="Reminder" />
       </RadioGroup>
     </FormControl>
   );

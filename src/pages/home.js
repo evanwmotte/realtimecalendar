@@ -55,9 +55,9 @@ export const Home = () => {
 
     return (
         <div>
-                <NavigationDrawer>
-                    <Button className={classes.button} onClick={logOut}>Log Out</Button>
-                </NavigationDrawer>
+            <NavigationDrawer>
+                <Button className={classes.button} onClick={logOut}>Log Out</Button>
+            </NavigationDrawer>
         </div>
     )
 }

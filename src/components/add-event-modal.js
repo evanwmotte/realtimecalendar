@@ -5,6 +5,7 @@ import { Backdrop, Card, TextField, Paper, Typography } from '@material-ui/core'
 import Fade from '@material-ui/core/Fade';
 import TimeSelector from '../components/time-select';
 import TaskSelector from '../components/task-select';
+import EventModal from './eventModal'
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -14,11 +15,14 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
+        border: 'white',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-        width: '20%',
+        width: '25%',
         height: '700px',
+        justify: 'center',
+        borderRadius: '17px',
+        outline: 'none'
     },
     card: {
         width: '14.28%',
@@ -30,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
     },
     addTitle: {
         marginTop: '10px',
-        marginBottom: '30px'
+        marginBottom: '30px',
     },
     time: {
         marginLeft: '50px'
-    }
+    },
 }));
 
 export default function TransitionsModal({ day, date }) {
@@ -69,16 +73,10 @@ export default function TransitionsModal({ day, date }) {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <Typography>{date}</Typography>
-                        <TextField
-                            className={classes.textField, classes.addTitle}
-                            variant={'outlined'}
-                            value={""}
-                            id="standard-basic"
-                            label="Add Title" />
-                        <TimeSelector time='Start Time' />
-                        <TimeSelector time='End Time' />
-                        <TaskSelector />
+                        <EventModal 
+                        day={day} 
+                        date={date} 
+                        close={handleClose}/>
                     </div>
                 </Fade>
             </Modal>
