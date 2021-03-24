@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button, Paper, Typography, IconButton, InputAdornment, InputLabel, OutlinedInput, FormControl } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons'
-import { auth, provider } from '../firebase';
+import { auth, db, provider } from '../firebase';
 import { useHistory } from 'react-router-dom';
 import { logInUserRedux } from '../redux/actions/authActions';
 import { useDispatch } from 'react-redux'

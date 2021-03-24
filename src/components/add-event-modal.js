@@ -3,9 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Backdrop, Card, TextField, Paper, Typography } from '@material-ui/core';
 import Fade from '@material-ui/core/Fade';
-import TimeSelector from '../components/time-select';
-import TaskSelector from '../components/task-select';
-import EventModal from './eventModal'
+import EventModal from './eventModal';
+import { db } from '../firebase'
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -42,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TransitionsModal({ day, date }) {
+
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -73,10 +73,10 @@ export default function TransitionsModal({ day, date }) {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <EventModal 
-                        day={day} 
-                        date={date} 
-                        close={handleClose}/>
+                        <EventModal
+                            day={day}
+                            date={date}
+                            close={handleClose}/>
                     </div>
                 </Fade>
             </Modal>

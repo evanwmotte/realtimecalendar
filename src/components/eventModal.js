@@ -6,6 +6,7 @@ import Fade from '@material-ui/core/Fade';
 import TimeSelector from '../components/time-select';
 import TaskSelector from '../components/task-select';
 import moment from 'moment';
+import { db } from '../firebase'
 
 const useStyles = makeStyles((theme) => ({
     addTitle: {
@@ -49,6 +50,22 @@ export default function EventModal({ date, close }) {
         setTitle(e.target.value)
     }
 
+    const saveEvent = () => {
+        db.collection('calendars')
+            .add({
+                title: 'Test',
+                type: 'event',
+                startTime: '1PM',
+                endTime: '2PM'
+            })
+            .then((event) => {
+                console.log(event)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     return (
         <>
             <Button className={classes.closeButton} onClick={close}>Close</Button>
@@ -70,6 +87,7 @@ export default function EventModal({ date, close }) {
             <Button className={classes.button}>Add Guests</Button>
             <Button className={classes.button}>Add Description</Button>
             <Button className={classes.button}>Add Location</Button>
+            <Button className={classes.button} onClick={saveEvent}>Save</Button>
         </>
     )
 }
